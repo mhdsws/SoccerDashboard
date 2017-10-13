@@ -1,0 +1,31 @@
+<h3>{{LeagueName}} </h3>
+<br />
+<form class="form-horizontal">
+ <p>Season starts: {{ SeasonStart }} &nbsp;</p>
+ <div class="container" [ngSwitch]="CurrentRole*10">
+    <div *ngSwitchCase=10>Head Referee</div>
+    <div *ngSwitchCase=20>Referee</div>
+    <div *ngSwitchCase=30>Scorekeeper</div>
+    <div *ngSwitchCase=40>Admin</div>
+    <div *ngSwitchDefault>End User</div>
+ </div>
+ <br/>
+<p style="font-size:large;margin-left:50px;">Game:
+    <select (change)="onSchedChange($event.target.value)">
+        <option *ngFor="let currentRow of MySchedule" value={{currentRow.id}}>
+            {{ currentRow.HomeTeam +" vs "+ currentRow.AwayTeam }}
+        </option>
+    </select>
+</p>
+
+<div class="form-group">
+    <label for="HomeGoals" class="col-xs-1">{{HomeTeam}}</label>
+    <div class="col-sm-3"><input type="number" (input)="HomeScore = $event.target.value" class="form-control input-sm" id="HomeGoals" [value]="HomeScore"></div>
+ </div>
+ <div class="form-group" >
+    <label for="AwayGoals" class="col-xs-1">{{AwayTeam}}</label>
+    <div class="col-sm-3"><input type="number" [(ngModel)]="AwayScore" name="AwayScore" class="form-control input-sm" id="AwayGoals" [value]="AwayScore"></div>
+ </div>
+
+ <button type="button" (click)="onRecordScores()" class="btn btn-primary">Record Scores</button>
+</form>
